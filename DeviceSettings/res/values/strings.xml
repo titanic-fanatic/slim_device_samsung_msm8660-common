@@ -1,32 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="app_name">Advanced Settings</string>
+<!-- Copyright (C) 2012-2013 The CyanogenMod Project
 
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">Advanced Settings</string>
     <string name="screen_colors_title">Colors</string>
-    <string name="category_mdnie_title">Screen</string>
+    <string name="category_screen_title">Screen</string>
 
     <!-- Hardware tunables - Vibrator intensity -->
     <string name="vibrator_intensity_title">Vibrator intensity</string>
     <string name="vibrator_warning">Values higher than %1$d are not recommended</string>
-    
-    <string name="mdnie_scenario_title_head">Scenario</string>
-    <string name="mdnie_scenario_summary_head">Set the mDNIe Scenario</string>
-    <string name="mdnie_mode_title_head">Mode</string>
-    <string name="mdnie_mode_summary_head">Set the mDNIe Mode</string>
-    <string name="mdnie_negative_title_head">Negative Mode</string>
-    <string name="mdnie_negative_summary_head">Enable/Disable inverted colors</string>
-    <string name="mdnie_outdoor_title_head">Outdoor Mode</string>
-    <string name="mdnie_outdoor_summary_head">Enable/Disable outdoor mode</string>
-    <string name="panel_gamma_title_head">Screen Gamma</string>
-    <string name="panel_gamma_summary_head">Set screen gamma value</string>
-    
+
+    <!-- Hardware tunables - Color calibration -->
+    <string name="color_calibration_title">Color calibration</string>
+    <string name="color_calibration_summary">Calibrate on-screen colors</string>
+    <string name="color_red_title">Red</string>
+    <string name="color_green_title">Green</string>
+    <string name="color_blue_title">Blue</string>
+
+    <!-- Hardware tunables - Gamma calibration -->
+    <string name="gamma_tuning_title_head">Gamma calibration</string>
+    <string name="gamma_tuning_summary_head">Tweak gamma values</string>
+    <string name="gamma_tuning_control_set_header">Group <xliff:g id="index">%d</xliff:g></string> <!-- used if no name provided by overlay -->
+    <string name="gamma_tuning_contrast">Contrast</string>
+    <string name="gamma_tuning_brightness">Brightness</string>
+    <string name="gamma_tuning_saturation">Saturation</string>
+
     <!--  Other device settings -->
-    <string name="sensors_motors_title">Vibrator Intensity</string>
+    <string name="sensors_motors_title">Sensors &amp; motors</string>
+    <string name="display_calibration_title">Display calibration</string>
     <string name="reset_button">Reset</string>
 
     <string name="touchscreen_subcat_title">Touchscreen</string>
     <string name="touchscreen_sensitivity_title_head">Touch sensitivity</string>
     <string name="touchscreen_sensitivity_summary_head">Set touch panel sensitivity</string>
+    
+    <!-- Screencast Settings -->
+    <string name="screencast_subcat_title">Screencasting</string>
+    <string name="mirroring_title_head">Mirroring Enabled</string>
+    <string name="mirroring_summary_head">Enable display mirroring in Google Services Framework</string>
+    <string name="remote_display_title_head">Remote Display Enabled</string>
+    <string name="remote_display_summary_head">Enable remote display in Google Services Framework</string>
 
     <string name="category_sensors_title">Sensors</string>
     <string name="gyro_subcat_title">Gyroscope</string>
@@ -34,6 +59,9 @@
     <string name="use_gyro_calibration_summary_head">Use the gyroscope calibration values. Do a calibration after checking this!</string>
     <string name="calibrate_gyro_title_head">Calibrate</string>
     <string name="calibrate_gyro_summary_head">Put your phone on a flat surface, and press this to calibrate</string>
+
+    <string name="touchkey_s2w_title_head">Enable Sweep2Wake</string>
+    <string name="touchkey_s2w_summary_head">Sweep the four capacitative keys from left to right to wake the device</string>
 
     <string name="touchkey_subcat_title">Touch key</string>
     <string name="touchkey_light_title_head">Enable keys backlight</string>

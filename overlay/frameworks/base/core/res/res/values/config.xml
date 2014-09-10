@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
 /*
-** Copyright 2012, The CyanogenMod Project
+** Copyright 2014, The CyanogenMod Project
 **
 ** Licensed under the Apache License, Version 2.0 (the "License");
 ** you may not use this file except in compliance with the License.
@@ -17,23 +17,7 @@
 */
 -->
 
-<!-- These resources are around just to allow their values to be customized
-     for different hardware and product builds. -->
 <resources>
-
-    <!-- Flag indicating whether we should enable automatic brightness for
-         the button and keyboard backlights. -->
-    <!-- <bool name="config_autoBrightnessButtonKeyboard">false</bool> -->
-
-    <!-- Component name of the service providing network location support. -->
-    <!-- <string name="config_networkLocationProviderPackageName">com.google.android.location.NetworkLocationProvider</string> -->
-
-    <!-- Component name of the service providing geocoder API support. -->
-    <!-- <string name="config_geocodeProviderPackageName">com.google.android.location.GeocodeProvider</string> -->
-
-    <!-- Flag indicating whether we should enable the automatic brightness in Settings.
-         config_hardware_automatic_brightness_available is not set, so we will use software implementation -->
-    <bool name="config_automatic_brightness_available">true</bool>
 
     <!-- Vibrator pattern for feedback about touching a virtual key -->
     <integer-array name="config_virtualKeyVibePattern">
@@ -43,6 +27,18 @@
     <!-- Default interface to monitor data use -->
     <string name="config_datause_iface">rmnet_sdio0</string>
 
+    <!-- Whether WiFi display is supported by this device.
+         There are many prerequisites for this feature to work correctly.
+         Here are a few of them:
+         * The WiFi radio must support WiFi P2P.
+         * The WiFi radio must support concurrent connections to the WiFi display and
+           to an access point.
+         * The Audio Flinger audio_policy.conf file must specify a rule for the "r_submix"
+           remote submix module.  This module is used to record and stream system
+           audio output to the WiFi display encoder in the media server.
+         * The remote submix module "audio.r_submix.default" must be installed on the device.
+         * The device must be provisioned with HDCP keys (for protected content).
+    -->
     <bool name="config_enableWifiDisplay">true</bool>
 
     <!-- List of regexpressions describing the interface (if any) that represent tetherable
@@ -52,4 +48,6 @@
         <item>"bt-pan"</item>
     </string-array>
 
+    <!-- Indicate whether the SD card is accessible without removing the battery. -->
+    <bool name="config_batterySdCardAccessibility">true</bool>
 </resources>

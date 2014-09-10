@@ -117,11 +117,11 @@ public class BlinkTimeout extends DialogPreference implements android.widget.But
             String sTimeout = valueTimeout + "";
             
             if (callChangeListener(sTimeout)) {
-                SharedPreferences sharedPrefs = mContext.getSharedPreferences(DeviceSettings.SHARED_PREFERENCES_BASENAME + "_preferences", 0);
+                SharedPreferences sharedPrefs = mContext.getSharedPreferences(DisplaySettings.SHARED_PREFERENCES_BASENAME + "_preferences", 0);
                 SharedPreferences.Editor editor = sharedPrefs.edit();
             
                 setValue(sTimeout);
-                editor.putString(DeviceSettings.KEY_TOUCHKEY_BLN_TIMEOUT, mValueTimeout);
+                editor.putString(DisplaySettings.KEY_TOUCHKEY_BLN_TIMEOUT, mValueTimeout);
                 editor.commit();
                 Utils.writeValue(FILE_BLN_TIMEOUT, mValueTimeout + "\n");
                 
