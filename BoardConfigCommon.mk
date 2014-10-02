@@ -47,9 +47,6 @@ COMMON_GLOBAL_CFLAGS += -DSAMSUNG_CAMERA_HARDWARE
 BOARD_BATTERY_DEVICE_NAME := "battery"
 BOARD_CHARGING_MODE_BOOTING_LPM := /sys/class/power_supply/battery/batt_lp_charging
 
-# CMHW
-BOARD_HARDWARE_CLASS += device/samsung/msm8660-common/cmhw
-
 # Display
 BOARD_EGL_CFG := device/samsung/msm8660-common/configs/egl.cfg
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
@@ -62,15 +59,15 @@ TARGET_QCOM_DISPLAY_VARIANT := caf
 # GPS
 BOARD_HAVE_NEW_QC_GPS := true
 
+# External apps on SD
+TARGET_EXTERNAL_APPS = sdcard1
+
 # Lights
 TARGET_PROVIDES_LIBLIGHT := true
 
 # Media
 TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
 TARGET_QCOM_MEDIA_VARIANT := caf
-
-# External apps on SD
-TARGET_EXTERNAL_APPS = sdcard1
 
 # Power
 TARGET_USES_CM_POWERHAL := true
@@ -80,7 +77,7 @@ COMMON_GLOBAL_CFLAGS += -DQCOM_BSP
 TARGET_USES_QCOM_BSP := true
 
 # Recovery
-BOARD_CUSTOM_GRAPHICS := ../../../device/samsung/msm8660-common/recovery/graphics.c
+#BOARD_CUSTOM_GRAPHICS := ../../../device/samsung/msm8660-common/recovery/graphics.c
 TARGET_RECOVERY_FSTAB := device/samsung/msm8660-common/rootdir/etc/fstab.qcom
 
 # Releasetools
