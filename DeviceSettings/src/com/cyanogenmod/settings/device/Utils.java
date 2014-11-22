@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.io.DataOutputStream;
 import java.lang.InterruptedException;
 import java.lang.Process;
+import java.util.Arrays;
 import java.util.Scanner;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
