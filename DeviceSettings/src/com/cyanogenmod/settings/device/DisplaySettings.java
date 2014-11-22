@@ -37,6 +37,9 @@ public class DisplaySettings extends FragmentActivity {
     public static final String ACTION_UPDATE_PREFERENCES = "com.cyanogenmod.settings.device.UPDATE";
     public static final String KEY_USE_GYRO_CALIBRATION = "use_gyro_calibration";
     public static final String KEY_CALIBRATE_GYRO = "calibrate_gyro";
+    public static final String KEY_PANEL_UV = "panel_uv";
+    public static int   UV_DEFAULT_VALUE = 500;
+    public static int   UV_INCREMENT_VALUE = 500;
     public static final String KEY_TOUCHSCREEN_SENSITIVITY = "touchscreen_sensitivity";
     public static final String KEY_MIRRORING = "mirroring_enabled";
     public static final String KEY_REMOTE_DISPLAY = "remote_display_enabled";

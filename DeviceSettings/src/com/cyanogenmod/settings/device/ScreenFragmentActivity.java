@@ -42,6 +42,9 @@ public class ScreenFragmentActivity extends PreferenceFragment implements OnPref
 
         final PreferenceGroup calibrationCategory =
                 (PreferenceGroup) findPreference(DisplaySettings.KEY_DISPLAY_CALIBRATION_CATEGORY);
+        
+        final PreferenceGroup panelUVCategory =
+                (PreferenceGroup) findPreference(DisplaySettings.KEY_PANEL_UV);
 
         if (!DisplayColor.isSupported() && !DisplayGamma.isSupported()) {
             getPreferenceScreen().removePreference(calibrationCategory);
@@ -53,6 +56,11 @@ public class ScreenFragmentActivity extends PreferenceFragment implements OnPref
                 calibrationCategory.removePreference(findPreference(DisplaySettings.KEY_DISPLAY_GAMMA));
             }
         }
+        
+        if (!PanelUndervolt.isSupported()) {
+            getPreferenceScreen().removePreference(panelUVCategory);
+        }
+        
         mTouchscreenSensitivity = (TouchscreenSensitivity) findPreference(DisplaySettings.KEY_TOUCHSCREEN_SENSITIVITY);
         mTouchscreenSensitivity.setEnabled(mTouchscreenSensitivity.isSupported());
         

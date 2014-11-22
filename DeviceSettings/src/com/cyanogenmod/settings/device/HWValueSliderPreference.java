@@ -37,6 +37,8 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Button;
 
+import com.cyanogenmod.settings.device.DisplaySettings;
+
 public abstract class HWValueSliderPreference extends DialogPreference implements
         SeekBar.OnSeekBarChangeListener {
     private SeekBar mSeekBar;
@@ -86,14 +88,23 @@ public abstract class HWValueSliderPreference extends DialogPreference implement
 
         mSeekBar = (SeekBar) view.findViewById(com.android.internal.R.id.seekbar);
         mValue = (TextView) view.findViewById(R.id.value);
-        mWarning = (TextView) view.findViewById(R.id.warning_text);
+        mWarning = (TextView) (view.findViewById(R.id.warning_text) != null ? view.findViewById(R.id.warning_text) : view.findViewById(R.id.current_value_text));
 
+        int mSeekBarSteps = 1;
         int warningThreshold = mHw.getWarningThreshold();
-        if (warningThreshold > 0) {
+        int defaultValue = mHw.getDefaultValue();
+        String preferenceName = mHw.getPreferenceName();
+        if (warningThreshold > 0 && preferenceName == "vibrator_intensity") {
             String message = getContext().getResources().getString(
                     R.string.vibrator_warning, hwValueToPercent(warningThreshold));
             mWarning.setText(message);
-        } else if (mWarning != null) {
+            mSeekBarSteps = 1;
+        } else if (preferenceName == "panel_uv") {
+            String message = getContext().getResources().getString(
+                    R.string.panel_undervolt_default, defaultValue, DisplaySettings.UV_INCREMENT_VALUE);
+            mWarning.setText(message);
+            mSeekBarSteps = DisplaySettings.UV_INCREMENT_VALUE;
+        } else if (mWarning == null) {
             mWarning.setVisibility(View.GONE);
         }
 
@@ -111,10 +122,11 @@ public abstract class HWValueSliderPreference extends DialogPreference implement
 
         // Restore percent value from SharedPreferences object
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
-        int value = settings.getInt(mHw.getPreferenceName(), mHw.getDefaultValue());
+        int value = settings.getInt(preferenceName, defaultValue);
 
         mSeekBar.setOnSeekBarChangeListener(this);
         mSeekBar.setMax(mHw.getMaxValue() - mMin);
+        mSeekBar.incrementProgressBy(mSeekBarSteps);
         mSeekBar.setProgress(value - mMin);
     }
 
@@ -202,7 +214,14 @@ public abstract class HWValueSliderPreference extends DialogPreference implement
         }
 
         mHw.setValue(progress + mMin);
-        mValue.setText(String.format("%d%%", hwValueToPercent(progress + mMin)));
+        
+        String preferenceName = mHw.getPreferenceName();
+        if (preferenceName == "vibrator_intensity") {
+            mValue.setText(String.format("%d%%", hwValueToPercent(progress + mMin)));
+        }
+        else if (preferenceName == "panel_uv") {
+            mValue.setText(String.format("%dmV", progress + mMin));
+        }
     }
 
     @Override

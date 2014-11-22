@@ -21,6 +21,10 @@
     <!-- Hardware tunables - Vibrator intensity -->
     <string name="vibrator_intensity_title">Vibrator intensity</string>
     <string name="vibrator_warning">Values higher than %1$d are not recommended</string>
+    
+    <!-- Hardware tunables - Panel uv -->
+    <string name="panel_undervolt_title">Panel Undervolt</string>
+    <string name="panel_undervolt_current">Default panel uv is %1$dmV in increments of %2$dmV</string>
 
     <!-- Hardware tunables - Color calibration -->
     <string name="color_calibration_title">Color calibration</string>
