@@ -75,7 +75,13 @@ public class Utils {
                 return line.replace("\n", "");
             }
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            try {
+                String[] cmds = {"cat \"" + filename + "\""};
+                String val = runAsRoot(cmds, true, false);
+                return val;
+            } catch (Exception e1) {
+                e.printStackTrace();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
