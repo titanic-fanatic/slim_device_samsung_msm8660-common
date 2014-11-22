@@ -78,7 +78,7 @@ public class Utils {
             try {
                 String[] cmds = {"cat \"" + filename + "\""};
                 String[] val = runAsRoot(cmds, false, true);
-                return val;
+                return Arrays.toString(val);
             } catch (Exception e1) {
                 e.printStackTrace();
             }
