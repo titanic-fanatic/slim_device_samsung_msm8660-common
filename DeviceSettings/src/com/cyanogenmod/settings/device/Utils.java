@@ -53,7 +53,7 @@ public class Utils {
             try {
                 String[] cmds = {"echo \"" + value + "\" > \"" + filename + "\""};
                 runAsRoot(cmds, true, false);
-            } catch (Exception e) {
+            } catch (Exception e1) {
                 e.printStackTrace();
             }
         } catch (IOException e) {
