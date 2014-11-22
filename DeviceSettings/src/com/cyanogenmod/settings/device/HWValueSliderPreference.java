@@ -46,6 +46,8 @@ public abstract class HWValueSliderPreference extends DialogPreference implement
     private TextView mWarning;
     private int mOriginalValue;
     private int mMin;
+    private int mMax;
+    private int mSteps;
 
     private HardwareInterface mHw;
 
@@ -69,6 +71,8 @@ public abstract class HWValueSliderPreference extends DialogPreference implement
         if (hw != null) {
             mHw = hw;
             mMin = hw.getMinValue();
+            mMax = hw.getMaxValue();
+            mSteps = 1;
         }
     }
 
@@ -90,20 +94,24 @@ public abstract class HWValueSliderPreference extends DialogPreference implement
         mValue = (TextView) view.findViewById(R.id.value);
         mWarning = (TextView) (view.findViewById(R.id.warning_text) != null ? view.findViewById(R.id.warning_text) : view.findViewById(R.id.current_value_text));
 
-        int mSeekBarSteps = 1;
+        int seekBarMax = 100;
         int warningThreshold = mHw.getWarningThreshold();
         int defaultValue = mHw.getDefaultValue();
         String preferenceName = mHw.getPreferenceName();
-        if (warningThreshold > 0 && preferenceName == "vibrator_intensity") {
+        
+        if (warningThreshold > 0 && preferenceName == "vibration_intensity") {
+            seekBarMax  = mHw.getMaxValue() - mMin;
             String message = getContext().getResources().getString(
                     R.string.vibrator_warning, hwValueToPercent(warningThreshold));
             mWarning.setText(message);
-            mSeekBarSteps = 1;
-        } else if (preferenceName == "panel_uv") {
+        } else if (warningThreshold == 0 && preferenceName == "panel_uv") {
+            int seekBarIncrement = DisplaySettings.UV_INCREMENT_VALUE;
+            int numIncrements = mMax - mMin;
+            seekBarMax = numIncrements / seekBarIncrement;
+            
             String message = getContext().getResources().getString(
-                    R.string.panel_undervolt_default, defaultValue, DisplaySettings.UV_INCREMENT_VALUE);
+                    R.string.panel_undervolt_default, defaultValue, seekBarIncrement);
             mWarning.setText(message);
-            mSeekBarSteps = DisplaySettings.UV_INCREMENT_VALUE;
         } else if (mWarning == null) {
             mWarning.setVisibility(View.GONE);
         }
@@ -125,8 +133,7 @@ public abstract class HWValueSliderPreference extends DialogPreference implement
         int value = settings.getInt(preferenceName, defaultValue);
 
         mSeekBar.setOnSeekBarChangeListener(this);
-        mSeekBar.setMax(mHw.getMaxValue() - mMin);
-        mSeekBar.incrementProgressBy(mSeekBarSteps);
+        mSeekBar.setMax(seekBarMax);
         mSeekBar.setProgress(value - mMin);
     }
 
@@ -216,11 +223,11 @@ public abstract class HWValueSliderPreference extends DialogPreference implement
         mHw.setValue(progress + mMin);
         
         String preferenceName = mHw.getPreferenceName();
-        if (preferenceName == "vibrator_intensity") {
+        if (preferenceName == "vibration_intensity") {
             mValue.setText(String.format("%d%%", hwValueToPercent(progress + mMin)));
         }
         else if (preferenceName == "panel_uv") {
-            mValue.setText(String.format("%dmV", progress + mMin));
+            mValue.setText(String.format("%dmV", (progress + mMin) * DisplaySettings.UV_INCREMENT_VALUE));
         }
     }
 

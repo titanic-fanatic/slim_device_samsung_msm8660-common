@@ -26,6 +26,7 @@ public class PanelUndervolt extends HWValueSliderPreference {
     private static int UV_MIN_VALUE = 0;
     private static int UV_MAX_VALUE = 500;
     private static int UV_DEFAULT_VALUE = 500;
+    private static int UV_INCREMENT_VALUE = 25;
 
     private static final HardwareInterface HW_INTERFACE = new HardwareInterface() {
         @Override
@@ -34,19 +35,19 @@ public class PanelUndervolt extends HWValueSliderPreference {
         }
         @Override
         public int getMaxValue() {
-            return UV_MAX_VALUE;
+            return UV_MAX_VALUE / UV_INCREMENT_VALUE;
         }
         @Override
         public int getCurrentValue() {
             if(Utils.fileExists(UV_VALUE_PATH)) {
-                return Integer.parseInt(Utils.readValue(UV_VALUE_PATH));
+                return Integer.parseInt(Utils.readValue(UV_VALUE_PATH)) / UV_INCREMENT_VALUE;
             } else {
                 return 0;
             }
         }
         @Override
         public int getDefaultValue() {
-            return UV_DEFAULT_VALUE;
+            return UV_DEFAULT_VALUE / UV_INCREMENT_VALUE;
         }
         @Override
         public int getWarningThreshold() {
@@ -55,7 +56,7 @@ public class PanelUndervolt extends HWValueSliderPreference {
         @Override
         public boolean setValue(int value) {
             if(Utils.fileExists(UV_VALUE_PATH)) {
-                Utils.writeValue(UV_VALUE_PATH, String.valueOf(value));
+                Utils.writeValue(UV_VALUE_PATH, String.valueOf(value * UV_INCREMENT_VALUE));
                 return true;
             } else {
                 return false;
