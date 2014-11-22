@@ -52,7 +52,7 @@ public class Utils {
         } catch (FileNotFoundException e) {
             try {
                 String[] cmds = {"echo \"" + value + "\" > \"" + filename + "\""};
-                runAsRoot(cmds, true, false);
+                runAsRoot(cmds, false, false);
             } catch (Exception e1) {
                 e.printStackTrace();
             }
@@ -77,7 +77,7 @@ public class Utils {
         } catch (FileNotFoundException e) {
             try {
                 String[] cmds = {"cat \"" + filename + "\""};
-                String val = runAsRoot(cmds, true, false);
+                String[] val = runAsRoot(cmds, false, true);
                 return val;
             } catch (Exception e1) {
                 e.printStackTrace();
