@@ -50,7 +50,12 @@ public class Utils {
             fos.flush();
             fos.close();
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            try {
+                String[] cmds = {"echo \"" + value + "\" > \"" + filename + "\""};
+                runAsRoot(cmds, true, false);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
