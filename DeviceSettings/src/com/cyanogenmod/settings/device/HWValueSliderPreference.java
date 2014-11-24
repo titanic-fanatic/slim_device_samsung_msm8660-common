@@ -31,7 +31,6 @@ import android.os.Parcelable;
 import android.preference.DialogPreference;
 import android.preference.PreferenceManager;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -47,7 +46,6 @@ public abstract class HWValueSliderPreference extends DialogPreference implement
     private int mOriginalValue;
     private int mMin;
     private int mMax;
-    private int mSteps;
 
     private HardwareInterface mHw;
 
@@ -72,7 +70,6 @@ public abstract class HWValueSliderPreference extends DialogPreference implement
             mHw = hw;
             mMin = hw.getMinValue();
             mMax = hw.getMaxValue();
-            mSteps = 1;
         }
     }
 
@@ -107,10 +104,10 @@ public abstract class HWValueSliderPreference extends DialogPreference implement
         } else if (warningThreshold == 0 && preferenceName == "panel_uv") {
             int seekBarIncrement = DisplaySettings.UV_INCREMENT_VALUE;
             int numIncrements = mMax - mMin;
-            seekBarMax = numIncrements / seekBarIncrement;
+            seekBarMax = numIncrements;
             
             String message = getContext().getResources().getString(
-                    R.string.panel_undervolt_default, defaultValue, seekBarIncrement);
+                    R.string.panel_undervolt_default, defaultValue * seekBarIncrement, seekBarIncrement);
             mWarning.setText(message);
         } else if (mWarning == null) {
             mWarning.setVisibility(View.GONE);
@@ -131,7 +128,6 @@ public abstract class HWValueSliderPreference extends DialogPreference implement
         // Restore percent value from SharedPreferences object
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
         int value = settings.getInt(preferenceName, defaultValue);
-
         mSeekBar.setOnSeekBarChangeListener(this);
         mSeekBar.setMax(seekBarMax);
         mSeekBar.setProgress(value - mMin);
@@ -148,7 +144,15 @@ public abstract class HWValueSliderPreference extends DialogPreference implement
         defaultsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mSeekBar.setProgress(mHw.getDefaultValue() - mMin);
+                int warningThreshold = mHw.getWarningThreshold();
+                int defaultValue = mHw.getDefaultValue();
+                String preferenceName = mHw.getPreferenceName();
+                if (warningThreshold > 0 && preferenceName == "vibration_intensity") {
+                    mSeekBar.setProgress(defaultValue - mMin);
+                }
+                else if (warningThreshold == 0 && preferenceName == "panel_uv") {
+                    mSeekBar.setProgress(defaultValue * DisplaySettings.UV_INCREMENT_VALUE);
+                }
             }
         });
     }
