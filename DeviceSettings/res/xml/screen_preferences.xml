@@ -20,12 +20,6 @@
                 android:summary="@string/gamma_tuning_summary_head"
                 android:persistent="false" />
 
-        <com.cyanogenmod.settings.device.PanelUndervolt
-            android:key="panel_uv"
-            android:title="@string/panel_undervolt_title"
-            android:dialogTitle="@string/panel_undervolt_title"
-            android:persistent="false" />
-
     </PreferenceCategory>
 
     <PreferenceCategory

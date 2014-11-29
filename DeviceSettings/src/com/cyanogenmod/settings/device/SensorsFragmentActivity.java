@@ -45,6 +45,8 @@ public class SensorsFragmentActivity extends PreferenceFragment {
     private static final String FILE_BLN_TIMEOUT = "/sys/class/misc/backlightnotification/blink_timeout";
     private static final String FILE_BLN_INTERVAL = "/sys/class/misc/backlightnotification/blink_interval";
     private static final String FILE_S2W_TOGGLE = "/sys/android_touch/sweep2wake";
+    private static final String FILE_S2S_TOGGLE = "/sys/android_touch/sweep2sleep";
+    private static final String FILE_S2W_SENSITIVE_TOGGLE = "/sys/android_touch/sweep2wake_sensitive";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -88,6 +90,10 @@ public class SensorsFragmentActivity extends PreferenceFragment {
             Utils.showToast((Context)getActivity(), "BLN has been successfully turned off!");
         } else if (key.compareTo(DisplaySettings.KEY_TOUCHKEY_S2W) == 0) {
             Utils.writeValue(FILE_S2W_TOGGLE, ((CheckBoxPreference)preference).isChecked() ? "1" : "0");
+        } else if (key.compareTo(DisplaySettings.KEY_TOUCHKEY_S2S) == 0) {
+            Utils.writeValue(FILE_S2S_TOGGLE, ((CheckBoxPreference)preference).isChecked() ? "1" : "0");
+        } else if (key.compareTo(DisplaySettings.KEY_TOUCHKEY_S2W_SENSITIVE) == 0) {
+            Utils.writeValue(FILE_S2W_SENSITIVE_TOGGLE, ((CheckBoxPreference)preference).isChecked() ? "1" : "0");
         }
 
         return true;
@@ -112,5 +118,7 @@ public class SensorsFragmentActivity extends PreferenceFragment {
         Utils.writeValue(FILE_BLN_INTERVAL, sharedPrefs.getString(DisplaySettings.KEY_TOUCHKEY_BLN_INTERVAL, "500 500"));
         Utils.writeValue(FILE_BLN_TIMEOUT, sharedPrefs.getString(DisplaySettings.KEY_TOUCHKEY_BLN_TIMEOUT, "600"));
         Utils.writeValue(FILE_S2W_TOGGLE, sharedPrefs.getBoolean(DisplaySettings.KEY_TOUCHKEY_S2W, false) ? "1" : "0");
+        Utils.writeValue(FILE_S2S_TOGGLE, sharedPrefs.getBoolean(DisplaySettings.KEY_TOUCHKEY_S2S, false) ? "1" : "0");
+        Utils.writeValue(FILE_S2W_SENSITIVE_TOGGLE, sharedPrefs.getBoolean(DisplaySettings.KEY_TOUCHKEY_S2W_SENSITIVE, false) ? "1" : "0");
     }
 }

@@ -28,6 +28,7 @@ import java.io.DataOutputStream;
 import java.lang.InterruptedException;
 import java.lang.Process;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Scanner;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -270,5 +271,34 @@ public class Utils {
     
     public static void showToast(Context ctx, String message) {
         Toast.makeText(ctx, message, Toast.LENGTH_LONG).show();
+    }
+    
+    public static String[] getAvailableFrequencies() {
+        String[] mAvailableFrequencies = new String[0];
+
+        String availableFrequenciesLine = readValue(DisplaySettings.FILE_CPU_FREQS);
+        if (availableFrequenciesLine != null) {
+            mAvailableFrequencies = availableFrequenciesLine.split(" ");
+            Arrays.sort(mAvailableFrequencies, new Comparator<String>() {
+                @Override
+                public int compare(String object1, String object2) {
+                    return Integer.valueOf(object1).compareTo(Integer.valueOf(object2));
+                }
+            });
+        }
+        
+        return mAvailableFrequencies;
+    }
+    
+    public static int CPUFreqToIndex(int cpuFreq) {
+        String[] mAvailableFrequencies = getAvailableFrequencies();
+        
+        return Arrays.asList(mAvailableFrequencies).indexOf(Integer.toString(cpuFreq));
+    }
+    
+    public static int IndexToCPUFreq(int index) {
+        String[] mAvailableFrequencies = getAvailableFrequencies();
+        
+        return Integer.valueOf(mAvailableFrequencies[index]);
     }
 }

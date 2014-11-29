@@ -31,10 +31,13 @@ import android.os.Parcelable;
 import android.preference.DialogPreference;
 import android.preference.PreferenceManager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Button;
+
+import java.util.Arrays;
 
 import com.cyanogenmod.settings.device.DisplaySettings;
 
@@ -46,6 +49,10 @@ public abstract class HWValueSliderPreference extends DialogPreference implement
     private int mOriginalValue;
     private int mMin;
     private int mMax;
+    private String[] mAvailableFrequencies;
+    private int mMinFreq;
+    private int mMaxFreq;
+    private int mCurFreq;
 
     private HardwareInterface mHw;
 
@@ -109,6 +116,13 @@ public abstract class HWValueSliderPreference extends DialogPreference implement
             String message = getContext().getResources().getString(
                     R.string.panel_undervolt_default, defaultValue * seekBarIncrement, seekBarIncrement);
             mWarning.setText(message);
+        } else if (warningThreshold == 0 && preferenceName == "input_boost_freq") {
+            mAvailableFrequencies = Utils.getAvailableFrequencies();
+            seekBarMax = mAvailableFrequencies.length -1;
+            
+            String message = getContext().getResources().getString(
+                    R.string.input_boost_freq_default, Utils.IndexToCPUFreq(defaultValue) / 1000);
+            mWarning.setText(message);
         } else if (mWarning == null) {
             mWarning.setVisibility(View.GONE);
         }
@@ -147,7 +161,8 @@ public abstract class HWValueSliderPreference extends DialogPreference implement
                 int warningThreshold = mHw.getWarningThreshold();
                 int defaultValue = mHw.getDefaultValue();
                 String preferenceName = mHw.getPreferenceName();
-                if (warningThreshold > 0 && preferenceName == "vibration_intensity") {
+                if ((warningThreshold > 0 && preferenceName == "vibration_intensity") ||
+                    (warningThreshold == 0 && preferenceName == "input_boost_freq")) {
                     mSeekBar.setProgress(defaultValue - mMin);
                 }
                 else if (warningThreshold == 0 && preferenceName == "panel_uv") {
@@ -232,6 +247,9 @@ public abstract class HWValueSliderPreference extends DialogPreference implement
         }
         else if (preferenceName == "panel_uv") {
             mValue.setText(String.format("%dmV", (progress + mMin) * DisplaySettings.UV_INCREMENT_VALUE));
+        }
+        else if (preferenceName == "input_boost_freq") {
+            mValue.setText(String.format("%dMHz", Utils.IndexToCPUFreq(progress) / 1000));
         }
     }
 

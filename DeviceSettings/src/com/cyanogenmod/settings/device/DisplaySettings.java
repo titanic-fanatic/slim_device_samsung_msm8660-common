@@ -65,6 +65,17 @@ public class DisplaySettings extends FragmentActivity {
     public static final String KEY_DISPLAY_GAMMA = "gamma_tuning";
     public static final String KEY_SENSORS_MOTORS_CATEGORY = "sensors_motors_category";
     public static final String KEY_TOUCHKEY_S2W = "touchkey_s2w";
+    public static final String KEY_TOUCHKEY_S2S = "touchkey_s2s";
+    public static final String KEY_TOUCHKEY_S2W_SENSITIVE = "touchkey_s2w_sensitive";
+    public static final String FILE_CPU_FREQS = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies";
+    public static final String FILE_INPUT_BOOST_ENABLED = "/sys/module/cpu_input_boost/input_boost_enabled";
+    public static final String FILE_INPUT_BOOST_FREQ = "/sys/module/cpu_input_boost/input_boost_freq";
+    public static final String FILE_INPUT_BOOST_MS = "/sys/module/cpu_input_boost/input_boost_ms";
+    public static final String KEY_KERNEL_PERFORMANCE_CATEGORY = "kernel_performance_category";
+    public static final String KEY_KERNEL_BATTERY_CATEGORY = "kernel_battery_category";
+    public static final String KEY_INPUT_BOOST_ENABLED = "input_boost_enabled";
+    public static final String KEY_INPUT_BOOST_FREQ = "input_boost_freq";
+    public static final String KEY_INPUT_BOOST_TIMEOUT = "input_boost_timeout";
 
     ViewPager mViewPager;
     TabsAdapter mTabsAdapter;
@@ -87,6 +98,8 @@ public class DisplaySettings extends FragmentActivity {
                 ScreenFragmentActivity.class, null);
         mTabsAdapter.addTab(bar.newTab().setText(R.string.category_sensors_title),
                 SensorsFragmentActivity.class, null);
+        mTabsAdapter.addTab(bar.newTab().setText(R.string.category_kernel_title),
+                KernelFragmentActivity.class, null);
 
         if (savedInstanceState != null) {
             bar.setSelectedNavigationItem(savedInstanceState.getInt("tab", 0));

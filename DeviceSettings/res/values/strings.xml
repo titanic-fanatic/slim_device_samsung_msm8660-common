@@ -17,13 +17,16 @@
     <string name="app_name">Advanced Settings</string>
     <string name="screen_colors_title">Colors</string>
     <string name="category_screen_title">Screen</string>
+    <string name="category_kernel_title">Kernel</string>
 
     <!-- Hardware tunables - Vibrator intensity -->
     <string name="vibrator_intensity_title">Vibrator intensity</string>
     <string name="vibrator_warning">Values higher than %1$d are not recommended</string>
     
     <!-- Hardware tunables - Panel uv -->
+    <string name="kernel_battery_title">Battery Saving Settings</string>
     <string name="panel_undervolt_title">Panel Undervolt</string>
+    <string name="panel_undervolt_summary">Undervolt your display panel up to 500mV to help save battery</string>
     <string name="panel_undervolt_default">Default panel uv is %1$dmV in increments of %2$dmV</string>
 
     <!-- Hardware tunables - Color calibration -->
@@ -66,6 +69,10 @@
 
     <string name="touchkey_s2w_title_head">Enable Sweep2Wake</string>
     <string name="touchkey_s2w_summary_head">Sweep the four capacitative keys from left to right to wake the device</string>
+    <string name="touchkey_s2s_title_head">Enable Sweep2Sleep</string>
+    <string name="touchkey_s2s_summary_head">Sweep the four capacitative keys from right to left to put the device to sleep</string>
+    <string name="touchkey_s2w_sensitive_title_head">Enable Sweep2Wake Sensitive</string>
+    <string name="touchkey_s2w_sensitive_summary_head">Touch only menu and search capacitative keys to wake or put the device to sleep</string>
 
     <string name="touchkey_subcat_title">Touch key</string>
     <string name="touchkey_light_title_head">Enable keys backlight</string>
@@ -84,9 +91,24 @@
     <string name="touchkey_bln_interval_dialog_success_toast">Blink interval set successfully!</string>
     <string name="touchkey_bln_timeout_title_head">Set blink timeout</string>
     <string name="touchkey_bln_timeout_summary_head">Set the duration in seconds for timout of the BLN.\n(Lower values save more battery)</string>
-    <string name="touchkey_bln_timeout_dialog_message">Set the BLN timout duration in seconds.</string>
+    <string name="touchkey_bln_timeout_dialog_message">Set the BLN timeout duration in seconds.</string>
     <string name="touchkey_bln_timeout_dialog_timeout_label">Timeout (s)</string>
     <string name="touchkey_bln_timeout_dialog_reset_toast">Blink timeout reset to default!</string>
     <string name="touchkey_bln_timeout_dialog_success_toast">Blink timeout set successfully!</string>
+    
+    <!-- Input Boost Settings -->
+    <string name="kernel_performance_title">Performance Settings</string>
+    <string name="input_boost_enabled_title_head">Enable CPU Input Boost</string>
+    <string name="input_boost_enabled_summary_head">CPU Input Boost will boost your CPU to the defined frequency for the defined number of miliseconds anytime you touch your screen when enabled.</string>
+    <string name="input_boost_freq_title">CPU Input Boost Frequency</string>
+    <string name="input_boost_freq_summary">Set the frequency which will be used for CPU Input Boost</string>
+    <string name="input_boost_freq_default">Default CPU Input Boost frequency is %1$dMHz</string>
+    <string name="input_boost_timeout_title_head">CPU Input Boost Timeout</string>
+    <string name="input_boost_timeout_summary_head">Set the CPU Input Boost timeout.</string>
+    <string name="input_boost_timeout_dialog_message">Set the CPU Boost timeout duration in milliseconds.</string>
+    <string name="input_boost_timeout_dialog_timeout_label">Timeout (ms)</string>
+    <string name="input_boost_timeout_dialog_reset_toast">CPU Input Boost timeout reset to default!</string>
+    <string name="input_boost_timeout_dialog_success_toast">CPU Input Boost timeout set successfully!</string>
+    <string name="input_boost_timeout_dialog_reset">Reset to Default</string>
 
 </resources>
